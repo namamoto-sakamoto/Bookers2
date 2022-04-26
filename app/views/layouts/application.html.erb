@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <a class="navbar-brand" href="/"><span>Bookers</span></a>
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to user_path(current_user.id), class: 'nav-link text-white' do %>
+                  <i class="fas fa-home"></i> Home
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to users_path, class: 'nav-link text-white' do %>
+                  <i class="fas fa-users"></i> Users
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to books_path, class: 'nav-link text-white' do %>
+                  <i class="fas fa-book-open"></i> Books
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-white' do %>
+                  <i class="fas fa-sign-out-alt"></i>  Log out
+                <% end %>
+              </li>
+            <% else %>
+              <li class="nav-item"><a class="nav-link text-white" href="/"><i class="fas fa-home"></i>Home</a></li>
+              <li class="nav-item">
+                <%= link_to  home_about_path, class: 'nav-link text-white' do %>
+                  <i class="fas fa-sign-out-alt"></i> About
+                <% end %>
+              </li>
+              <li class="nav-item"><a class="nav-link text-white" href="/users/sign_up"><i class="fas fa-user-plus"></i>Sign up</a></li>
+              <li class="nav-item"><a class="nav-link text-white" href="/users/sign_in"><i class="fas fa-sign-in-alt"></i>Log in</a></li>
+            <% end %>
+             </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+    <%= yield %>
+    <footer>
+      <p class="footer-text text-center">CopyRight Infratop.inc</p>
+    </footer>
+  </body>
+</html>
